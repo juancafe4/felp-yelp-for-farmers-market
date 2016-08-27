@@ -1,0 +1,28 @@
+.AppBar {
+  background-color: #2E7D32 !important;
+}
+
+.AppBar div {
+  background-color: #2E7D32 !important;
+  margin-right: 10px;
+  margin-top: 2px;
+}
+
+.SearchBox {
+  float: left !important;
+  height: 55px !important;
+}
+
+.SearchBox label {
+  top: 20px !important;
+}
+
+.SearchBox input {
+  height: 70% !important;
+  color: white !important;
+}
+
+.actionSearch {
+  color: white !important;
+}
+

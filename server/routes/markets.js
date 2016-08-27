@@ -10,7 +10,9 @@ router.route('/zipcode/:zipcode').get((req, res) => {
     .then(data => {
       res.send(data['results']);
     })
-    .catch(console.error)
+    .catch(error => {
+      res.status(404).send('Not Found');
+    })
 }); 
 
 router.route('/id/:id').get((req, res) => {
@@ -20,6 +22,8 @@ router.route('/id/:id').get((req, res) => {
     .then(data => {
       res.send(data['marketdetails']);
     })
-    .catch(console.error)
+    .catch(error => {
+      res.status(404).send('Not Found');
+    })
 })
 module.exports = router;
