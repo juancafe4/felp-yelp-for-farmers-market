@@ -7,6 +7,7 @@ import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 
+import MarketActions from '../actions/MarketActions';
 
 const styles = {
   errorStyle: {
@@ -47,9 +48,10 @@ export default class Navbar extends Component {
   search(e) {
     e.preventDefault();
     let {search} = this.state
-    if (search) 
+    if (search) { 
+      MarketActions.getResults(search);
       browserHistory.push(`/results/zipcode/${search}`);
-    
+    }
   }
   changeSearch(e) { 
     this.setState({search: e.target.value})

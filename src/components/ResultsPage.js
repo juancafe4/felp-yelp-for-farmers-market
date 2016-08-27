@@ -3,7 +3,7 @@ import React from 'react';
 
 import MarketStore from '../stores/MarketStore';
 import {List, ListItem} from 'material-ui/List';
-import ActionInfo from 'material-ui/svg-icons/action/info';
+import ActionInfo from 'material-ui/svg-icons/places/business-center';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import MarketActions from '../actions/MarketActions';
@@ -20,9 +20,11 @@ class ResultsPage extends React.Component {
         this._onChange = this._onChange.bind(this);
     }
 
+    // componentWillReceiveProps(props) {
+    //   MarketActions.getResults(props.params.zipcode);
+    // }
     componentDidMount() {
-      // MarketActions.getResults(this.props.params.zipcode);
-      console.log('at page results ', this.props.params)
+      MarketActions.getResults(this.props.params.zipcode);
       MarketStore.startListening(this._onChange);
     }
 
@@ -43,7 +45,7 @@ class ResultsPage extends React.Component {
           let {marketname, id} = result;
           let miles = marketname.split(' ')[0]
           let address = marketname.substr(miles.length+1, marketname.length)
-          return <ListItem key={id}  primaryText={`${address}`} secondaryText={`${miles} miles`}  />
+          return <ListItem key={id}  primaryText={`${address}`} secondaryText={`${miles} miles`}  rightIcon={<ActionInfo/>}/>
         })
         return(
           <List>
