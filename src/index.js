@@ -8,9 +8,7 @@ import './style.css';
 import Layout from './components/Layout'
 import Splash from './components/Splash'
 import AboutUs from './components/AboutUs'
-
-
-
+import ResultsPage from './components/ResultsPage'
 
 injectTapEventPlugin();
 
@@ -19,7 +17,9 @@ render(
     <Route path='/' component={Layout}>
       <IndexRoute component={Splash}/>
       <Route path='/about-us' component={AboutUs}/>
+      <Route path='/results/zipcode/:zipcode' component={ResultsPage}></Route>
     </Route>
+
   </Router>,
   document.getElementById('root')
 );

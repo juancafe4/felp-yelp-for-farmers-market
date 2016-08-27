@@ -7,6 +7,7 @@ import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 
+
 const styles = {
   errorStyle: {
     color: 'white',
@@ -45,12 +46,12 @@ export default class Navbar extends Component {
 
   search(e) {
     e.preventDefault();
-    let {search} = this.state.search
-    if (search) {
-      console.log('search')
-    }
+    let {search} = this.state
+    if (search) 
+      browserHistory.push(`/results/zipcode/${search}`);
+    
   }
-  changeSearch(e) {
+  changeSearch(e) { 
     this.setState({search: e.target.value})
   }
   render() {
