@@ -2,6 +2,8 @@ import {EventEmitter} from 'events';
 import AppDispatcher from '../AppDispatcher';
 
 let _results = undefined;
+let _market = undefined;
+let _name = undefined;
 class MarketStore extends EventEmitter {
   constructor() {
     super();
@@ -12,6 +14,15 @@ class MarketStore extends EventEmitter {
         case 'RECEIVE_RESULTS':
           _results = action.results;
           this.emit('CHANGE');
+          break;
+        case 'RECEIVE_MARKET':
+          _market = action.market;
+          this.emit('CHANGE');
+          break;
+
+        case 'SET_NAME':
+          _name = action.name;
+          this.emit('CHANGE')
           break;
       }
     })
@@ -28,7 +39,29 @@ class MarketStore extends EventEmitter {
   getResults() {
     return _results;
   }
+
+  getMarket() {
+    return _market;
+  }
+
+  getName() {
+    return _name;
+  }
+
+  setName(newName) {
+    _name = newName;
+  }
 }
 
 
 export default new MarketStore();
+
+
+
+
+
+
+
+
+
+

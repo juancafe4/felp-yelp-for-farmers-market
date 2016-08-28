@@ -9,7 +9,10 @@ import Layout from './components/Layout'
 import Splash from './components/Splash'
 import AboutUs from './components/AboutUs'
 import ResultsPage from './components/ResultsPage'
-
+import DisplayMarket from './components/DisplayMarket';
+import MarketInfo from './components/MarketInfo';
+import MarketReviews from './components/MarketReviews';
+import MarketStands from './components/MarketStands';
 injectTapEventPlugin();
 
 render(
@@ -18,6 +21,11 @@ render(
       <IndexRoute component={Splash}/>
       <Route path='/about-us' component={AboutUs}/>
       <Route path='/results/zipcode/:zipcode' component={ResultsPage}></Route>
+      <Route path='/market/:id' component={DisplayMarket}>
+        <Route path='/market/:id/info/:index' component={MarketInfo}/>
+        <Route path='/market/:id/reviews/:index' component={MarketReviews}/>
+        <Route path='/market/:id/stands/:index' component={MarketStands}/>
+      </Route>
     </Route>
 
   </Router>,

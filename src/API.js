@@ -5,7 +5,13 @@ const API = {
     axios.get(`/api/markets/zipcode/${zipcode}`)
       .then(res => res.data)
       .then(ServerActions.getResults)
-      .catch(console.error);
+      .catch(console.error)
+  },
+  getMarket(id) {
+    axios.get(`/api/markets/id/${id}`)
+      .then(res => res.data)
+      .then(ServerActions.getMarket)
+      .catch(console.error)
   }
 }
 

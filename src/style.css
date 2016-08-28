@@ -1,9 +1,9 @@
 .AppBar {
-  background-color: #2E7D32 !important;
+  background-color: #43A047 !important;
 }
 
 .AppBar div {
-  background-color: #2E7D32 !important;
+  background-color: #43A047 !important;
   margin-right: 10px;
   margin-top: 2px;
 }
@@ -26,3 +26,10 @@
   color: white !important;
 }
 
+/*.material-icons:active {
+  color: green !important;
+}*/
+
+/*.bottomNavItem {
+  color: red !important;
+}*/

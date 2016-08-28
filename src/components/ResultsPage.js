@@ -1,5 +1,6 @@
 
 import React from 'react';
+import {browserHistory} from 'react-router';
 
 import MarketStore from '../stores/MarketStore';
 import {List, ListItem} from 'material-ui/List';
@@ -18,11 +19,9 @@ class ResultsPage extends React.Component {
         }
 
         this._onChange = this._onChange.bind(this);
+        this.goToMarket = this.goToMarket.bind(this);
     }
 
-    // componentWillReceiveProps(props) {
-    //   MarketActions.getResults(props.params.zipcode);
-    // }
     componentDidMount() {
       MarketActions.getResults(this.props.params.zipcode);
       MarketStore.startListening(this._onChange);
@@ -37,6 +36,11 @@ class ResultsPage extends React.Component {
         results: MarketStore.getResults()
       })
     }
+
+    goToMarket(id, address) {
+      browserHistory.push(`/market/${id}&${address}`);
+    }
+
     render() {
       if(this.state.results) {
         let {results} = this.state;
@@ -45,7 +49,7 @@ class ResultsPage extends React.Component {
           let {marketname, id} = result;
           let miles = marketname.split(' ')[0]
           let address = marketname.substr(miles.length+1, marketname.length)
-          return <ListItem key={id}  primaryText={`${address}`} secondaryText={`${miles} miles`}  rightIcon={<ActionInfo/>}/>
+          return <ListItem key={id} onClick={this.goToMarket.bind(null, id, address)} primaryText={`${address}`} secondaryText={`${miles} miles`} rightIcon={<ActionInfo/>}/>
         })
         return(
           <List>

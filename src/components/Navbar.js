@@ -47,11 +47,12 @@ export default class Navbar extends Component {
 
   search(e) {
     e.preventDefault();
-    let {search} = this.state
+    let {search} = this.state;
     if (search) { 
       MarketActions.getResults(search);
       browserHistory.push(`/results/zipcode/${search}`);
     }
+    this.setState({search: ''});
   }
   changeSearch(e) { 
     this.setState({search: e.target.value})
@@ -61,6 +62,7 @@ export default class Navbar extends Component {
       <AppBar title="Felp" showMenuIconButton={false} className='AppBar'>
         <form onSubmit={this.search}>
           <TextField
+          value={this.state.search}
           onChange={this.changeSearch}
           className='SearchBox'
           floatingLabelText="SEARCH"
