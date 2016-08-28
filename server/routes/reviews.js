@@ -26,5 +26,4 @@ router.route('/:id')
     })
   })
 
-router.route('')
 module.exports = router;
