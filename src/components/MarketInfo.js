@@ -12,7 +12,8 @@ class MarketInfo extends React.Component {
 
         this.state = {
           name: MarketStore.getName(),
-          market: MarketStore.getMarket()
+          market: MarketStore.getMarket(),
+          expand: false
         }
      let name = props.params.id.split('&')[1];
      console.log(name) 
@@ -41,14 +42,15 @@ class MarketInfo extends React.Component {
         let { Address, GoogleLink, Products, Schedule } = this.state.market;
         Products = Products.split(';').map((product,i) => {
           if (this.state.expand) {
-            return <ListItem key={i}>{product}</ListItem>
+            return <ListItem key={i} className='productsList'>{product}</ListItem>
           } else {
-            if (i < 5) 
+            if (i < 4) 
               return product + ', ';
             else
               return '';
           }
         });
+        Products.push(<div className='col-xs-12' key={Products.length+1}><a onClick={() => this.setState({expand: !this.state.expand})}>{this.state.expand ? 'hide' : 'show more'}</a></div>)
         console.log(Products);
 
         let newURL = GoogleLink = decodeURI(GoogleLink).split('=')[1]
@@ -65,7 +67,8 @@ class MarketInfo extends React.Component {
             <div className="col-xs-12 col-md-6 col-md-offset-3 text-center">
               <Maps lat={lat} lng={lng} Address={Address}/>
             </div>
-            <div className="col-xs-12 text-center">
+            <div className="col-xs-12 col-md-4 col-md-offset-4 text-center">
+              <h4>Products:</h4>
               {Products}
             </div>
 

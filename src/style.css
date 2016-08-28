@@ -26,10 +26,10 @@
   color: white !important;
 }
 
-/*.material-icons:active {
-  color: green !important;
-}*/
-
-/*.bottomNavItem {
-  color: red !important;
-}*/
+.productsList {
+  padding: -10px !important;
+  text-align: left;
+}
+.productsList>div>div {
+  padding: 5px !important;
+}

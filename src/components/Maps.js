@@ -37,26 +37,26 @@ class Maps extends React.Component {
       };
 
         return (
-            <Gmaps
-              width={'100%'}
-              height={'400px'}
+          <Gmaps
+            width={'100%'}
+            height={'400px'}
+            lat={coords.lat}
+            lng={coords.lng}
+            zoom={12}
+            loadingMessage={'Loading ...'}
+            params={{v: '3.exp', key: 'YOUR_API_KEY'}}
+            onMapCreated={this.onMapCreated}>
+            <Marker
               lat={coords.lat}
               lng={coords.lng}
-              zoom={12}
-              loadingMessage={'Loading ...'}
-              params={{v: '3.exp', key: 'YOUR_API_KEY'}}
-              onMapCreated={this.onMapCreated}>
-              <Marker
-                lat={coords.lat}
-                lng={coords.lng}
-                draggable={true}
-                onDragEnd={this.onDragEnd} />
-              <InfoWindow
-                lat={coords.lat}
-                lng={coords.lng}
-                content={this.props.Address}
-                onCloseClick={this.onCloseClick} />
-            </Gmaps>
+              draggable={true}
+              onDragEnd={this.onDragEnd} />
+            <InfoWindow
+              lat={coords.lat}
+              lng={coords.lng}
+              content={this.props.Address}
+              onCloseClick={this.onCloseClick} />
+          </Gmaps>
       );
     }
 }
