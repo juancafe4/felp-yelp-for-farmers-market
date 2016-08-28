@@ -30,6 +30,13 @@
   padding: -10px !important;
   text-align: left;
 }
+
 .productsList>div>div {
   padding: 5px !important;
+}
+
+textarea {
+  height: 300%;
+  width: 200%;
+  color: red;
 }
