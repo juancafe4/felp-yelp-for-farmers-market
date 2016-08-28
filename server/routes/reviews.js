@@ -7,7 +7,7 @@ router.route('/')
   .get((req, res) => {
     Review.find({}, (Review, err) => {
       res.status(err ? 400 : 200). send(err || markets)
-    }).populate('Review Stand')
+    })
   })
   .post((req, res) => {
     Review.create(req.body, (err, newReview) => {

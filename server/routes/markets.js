@@ -5,7 +5,7 @@ const moment = require('moment');
 
 const Market = require('../models/Market');
 const Review = require('../models/Review');
-
+const Stand = require('../models/Stand');
 let getSchedules = function(Schedule) {
   let months, hours, modSchedule;
   Schedule = Schedule.split(/<br>/);
@@ -35,7 +35,7 @@ let getSchedules = function(Schedule) {
 router.route('/').get((req, res) => {
   Market.find({}, (markets, err) => {
     res.status(err ? 400 : 200). send(err || markets)
-  })
+  }).populate('reviews').populate('stands')
 });
 router.route('/zipcode/:zipcode').get((req, res) => {
   let url = `http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${req.params.zipcode}`
@@ -139,6 +139,46 @@ router.put('/:id/deleteReview/:reviewId', (req, res) => {
       market.save((err, savedMarket) => {
         if (err) return res.status(400).send(err);
         Review.findByIdAndRemove(reviewId, err => {
+          res.status(err ? 400 : 200).send(err || savedMarket);
+        })
+      });
+  });
+})
+
+
+/* Market and Stand*/
+router.put('/:id/addStand/:standId', (req, res) => {
+  Market.findById(req.params.id, (err, market) => {
+    if(err || !market) {
+      return res.status(400).send(err || 'Market not found.');
+    }
+    let standId = req.params.standId;
+    Stand.findById(standId, (err , stand) => {
+      if(err || !stand) {
+        return res.status(400).send(err || 'Stand not found.');
+      }
+      market.stands.push(standId);
+      market.save((err, savedMarket) => {
+        if (err) return res.status(400).send(err);
+        res.status(200).send(savedMarket)
+      });
+    });
+  });
+})
+
+router.put('/:id/deleteStand/:standId', (req, res) => {
+  Market.findById(req.params.id, (err, market) => {
+    if(err || !market) {
+      return res.status(400).send(err || 'Market not found.');
+    }
+    let standId = req.params.standId;
+      market.stands = market.stands.filter(st => {
+        return st != standId;
+      });
+      console.log('MARKET.REVIEWS', market.stands);
+      market.save((err, savedMarket) => {
+        if (err) return res.status(400).send(err);
+        Stand.findByIdAndRemove(standId, err => {
           res.status(err ? 400 : 200).send(err || savedMarket);
         })
       });
