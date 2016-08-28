@@ -1,9 +1,9 @@
 import {EventEmitter} from 'events';
 import AppDispatcher from '../AppDispatcher';
 
-let _results = undefined;
-let _market = undefined;
-let _name = undefined;
+let _results = null;
+let _market = null;
+let _name = null;
 class MarketStore extends EventEmitter {
   constructor() {
     super();
@@ -51,6 +51,7 @@ class MarketStore extends EventEmitter {
   setName(newName) {
     _name = newName;
   }
+
 }
 
 

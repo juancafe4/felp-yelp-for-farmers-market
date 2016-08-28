@@ -31,7 +31,7 @@ class DisplayMarket extends React.Component {
       let id = params.split('&')[0];
       let name = params.split('&')[1];
       MarketActions.getMarket(id);
-      // MarketStore.setName(name);
+      MarketActions.setName(name);
     }
 
     render() {

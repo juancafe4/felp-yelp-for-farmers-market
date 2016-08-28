@@ -1,47 +1,57 @@
 import React from 'react';
 import MarketStore from '../stores/MarketStore';
 import MarketActions from '../actions/MarketActions';
+import {List, ListItem} from 'material-ui/List';
+
 class MarketInfo extends React.Component {
     constructor(props) {
         super(props);
         this.displayName = 'MarketInfo';
 
         this.state = {
-          name: MarketStore.getName()
+          name: MarketStore.getName(),
+          market: MarketStore.getMarket()
         }
-        
      let name = props.params.id.split('&')[1]; 
       MarketActions.setName(name);
 
       this._onChange = this._onChange.bind(this);
     }
 
-    compopnentDidMount() {
-      this.setState({name: MarketStore.getName()})
+    componentDidMount() {
       MarketStore.startListening(this._onChange)
     }
 
-    compopnentWillUnmount() {
+    componentWillUnmount() {
       MarketStore.stopListening(this._onChange);
     }
     _onChange() {
-      console.log('_onChange')
-      this.setState({name: MarketStore.getName()})
+      this.setState({
+        name: MarketStore.getName(),
+        market: MarketStore.getMarket()
+      })
     }
     render() {
-      console.log(this.state)
+      let months, hours, modSchedule;
       let {name} = this.state;
-      console.log('getting name ', name)
-      if(name)
+      if (this.state.market) {
+        let { Address, GoogleLink, Products, Schedule } = this.state.market;
+        Products = Products.split(';').map((product,i) => {
+          return <ListItem key={i}>{product}</ListItem>
+        });
         return (
           <div className='row'>
-            <div className="col-xs-12">
-              <h1>{MarketStore.getName()}</h1>
+            <div className="col-xs-12 text-center">
+              <h1>{name}</h1>
+              <h4>{Address}</h4>
+              <List>{Products}</List>
+              <h2>{GoogleLink}</h2>
             </div>
           </div>
         )
+      }
       else
-        return <div></div>
+        return <div>Not Found</div>
     }
 }
 
