@@ -70,7 +70,7 @@ router.route('/id/:id').post((req, res) => {
         products = market.Products.split(';');
       Market.findOne({market_id: req.params.id}, (err, mkt) => {
 
-        if (!mkt) {
+        if (!mkt.length) {
           let obj = {
             market_id: req.params.id,
             link: market.GoogleLink,
