@@ -35,8 +35,6 @@
   padding: 5px !important;
 }
 
-textarea {
-  height: 300%;
-  width: 200%;
-  color: red;
+.standImg {
+  width: 100%;
 }
