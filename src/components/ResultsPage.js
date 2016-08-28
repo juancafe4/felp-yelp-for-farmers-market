@@ -38,7 +38,7 @@ class ResultsPage extends React.Component {
     }
 
     goToMarket(id, address) {
-      browserHistory.push(`/market/${id}&${address}`);
+      browserHistory.push(`/market/${id}&${address}/info/0`);
     }
 
     render() {
