@@ -8,11 +8,15 @@ const API = {
       .catch(console.error)
   },
   getMarket(id, name) {
-    console.log('NAMEN', name);
     axios.post(`/api/markets/id/${id}`, {name})
       .then(res => res.data)
       .then(ServerActions.getMarket)
       .catch(console.error)
+  },
+  addReview(marketId, review) { // review is an object
+    axios.post('/api/reviews', review)
+      .then(res => res.data)
+      
   }
 }
 

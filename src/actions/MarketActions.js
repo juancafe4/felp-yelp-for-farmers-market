@@ -8,7 +8,8 @@ const MarketActions = {
       type: 'SET_NAME',
       name
     })
-  }
+  },
+  addReview: API.addReview
 }
 
 export default MarketActions;

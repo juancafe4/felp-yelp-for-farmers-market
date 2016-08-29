@@ -3,6 +3,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import moment from 'moment';
+import MarketStore from '../stores/MarketStore';
 
 
 class MarketReviews extends React.Component {
@@ -13,7 +14,7 @@ class MarketReviews extends React.Component {
         this.state = {
           rating: null,
           text: '',
-          reviews: []
+          reviews:  MarketStore.getMarket().reviews
         }
         this.onStarClick = this.onStarClick.bind(this);
         this.submit = this.submit.bind(this);
@@ -21,9 +22,6 @@ class MarketReviews extends React.Component {
     }
 
     onStarClick(nextValue, prevValue, name) {
-        console.log('nextValue ', nextValue);
-        console.log('prevValue ', prevValue);
-        console.log('name ', name)
         this.setState({rating: nextValue});
     }
 
@@ -44,9 +42,10 @@ class MarketReviews extends React.Component {
     }
 
     render() {
-      console.log(this.state.reviews);
+      console.log('REVIEWS',this.state.reviews);
       let Reviews;
       if (this.state.reviews.length) {
+        console.log('!@$!%!#', this.state.reviews);
         Reviews = this.state.reviews.map((review, i) => {
           return (
             <div key={i}>
