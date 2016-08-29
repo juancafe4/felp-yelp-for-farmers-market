@@ -15,7 +15,6 @@ class MarketInfo extends React.Component {
           market: MarketStore.getMarket(),
           expand: false
         }
-        console.log('props.params.id', props.params.id)
      let name = props.params.id.split('&')[1];
       MarketActions.setName(name);
 
@@ -38,7 +37,9 @@ class MarketInfo extends React.Component {
     render() {
       let months, hours, modSchedule;
       let {name} = this.state;
-      console.log(this.state.market);
+
+      
+      console.log('market123',this.state.market);
       if (this.state.market) {
         let { address, link, products, schedules } = this.state.market;
         console.log('products',products);
@@ -53,14 +54,11 @@ class MarketInfo extends React.Component {
           }
         });
         products.push(<div className='col-xs-12' key={products.length+1}><a onClick={() => this.setState({expand: !this.state.expand})}>{this.state.expand ? 'hide' : 'show more'}</a></div>)
-        console.log(products);
-
         let newURL = link = decodeURI(link).split('=')[1]
         newURL =  newURL.replace('%2C', '').split(' ');
 
         let lat = newURL[0], lng = newURL[1];
 
-        console.log('schedules', this.state.market.schedules);
 
 
         return (

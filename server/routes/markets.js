@@ -33,9 +33,9 @@ let getSchedules = function(Schedule) {
 }
 
 router.route('/').get((req, res) => {
-  Market.find({}, (markets, err) => {
+  Market.find({}).populate('reviews stands').exec((err, markets) => {
     res.status(err ? 400 : 200). send(err || markets)
-  }).populate('reviews').populate('stands')
+  })
 });
 router.route('/zipcode/:zipcode').get((req, res) => {
   let url = `http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${req.params.zipcode}`
@@ -82,12 +82,18 @@ router.route('/id/:id').post((req, res) => {
         }
 
         Market.create(obj, (err, newMarket) => {
-          res.status(err ? 400 : 200).send(err || newMarket);
-        });
+          if (err) res.status(400).send(err)
+          let id = newMarket._id;
+
+          Market.findById(id).populate('reviews stands')
+            .exec((err ,market) => {
+              return res.status(err ? 400 : 200).send(err || market);
+            })
+        })
       } else {
         res.status(err ? 400 : 200).send(err || mkt);
       }
-    });
+    }).populate('reviews stands')
   })
   .catch(error => {
     res.status(404).send('Not Found');
@@ -122,8 +128,8 @@ router.put('/:id/addReview/:reviewId', (req, res) => {
         if (err) return res.status(400).send(err);
         res.status(200).send(savedMarket)
       });
-    });
-  });
+    })
+  }).populate('reviews stands')
 })
 
 router.put('/:id/deleteReview/:reviewId', (req, res) => {
@@ -142,7 +148,7 @@ router.put('/:id/deleteReview/:reviewId', (req, res) => {
           res.status(err ? 400 : 200).send(err || savedMarket);
         })
       });
-  });
+  }).populate('reviews stands')
 })
 
 
@@ -163,7 +169,7 @@ router.put('/:id/addStand/:standId', (req, res) => {
         res.status(200).send(savedMarket)
       });
     });
-  });
+  }).populate('reviews stands')
 })
 
 router.put('/:id/deleteStand/:standId', (req, res) => {
@@ -182,6 +188,6 @@ router.put('/:id/deleteStand/:standId', (req, res) => {
           res.status(err ? 400 : 200).send(err || savedMarket);
         })
       });
-  });
+  }).populate('reviews stands')
 })
 module.exports = router;

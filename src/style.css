@@ -38,3 +38,12 @@
 .standImg {
   width: 100%;
 }
+
+.reviewDate {
+  font-size: 10px;
+  text-decoration: italic;
+}
+
+.review {
+  margin-bottom: 40px;
+}

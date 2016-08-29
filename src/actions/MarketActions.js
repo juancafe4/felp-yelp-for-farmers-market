@@ -9,7 +9,8 @@ const MarketActions = {
       name
     })
   },
-  addReview: API.addReview
+  addReview: API.addReview,
+  addStand: API.addStand
 }
 
 export default MarketActions;

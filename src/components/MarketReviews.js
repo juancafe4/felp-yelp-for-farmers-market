@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import moment from 'moment';
 import MarketStore from '../stores/MarketStore';
+import MarketActions from '../actions/MarketActions';
 
 
 class MarketReviews extends React.Component {
@@ -14,11 +15,24 @@ class MarketReviews extends React.Component {
         this.state = {
           rating: null,
           text: '',
-          reviews:  MarketStore.getMarket().reviews
+          reviews:  MarketStore.getReviews()
         }
         this.onStarClick = this.onStarClick.bind(this);
         this.submit = this.submit.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
+        this._onChange = this._onChange.bind(this);
+    }
+
+    componentDidMount() {
+      MarketStore.startListening(this._onChange);
+    }
+    componentWillUnmount() {
+      MarketStore.stopListening(this._onChange);
+    }
+
+    _onChange() {
+      this.setState({reviews: MarketStore.getReviews()});
+      console.log('on change ', MarketStore.getReviews())
     }
 
     onStarClick(nextValue, prevValue, name) {
@@ -30,10 +44,10 @@ class MarketReviews extends React.Component {
       let newObj = {
         rating: this.state.rating,
         text: this.state.text,
-        date: moment(Date.now()).format("lll")
       }
-      let revs = this.state.reviews;
-      this.setState({reviews: revs.concat(newObj)});
+      let marketId = MarketStore.getMarket()._id;
+      console.log(newObj);
+      MarketActions.addReview(marketId, newObj)
       this.setState({text: '', rating: null});
     }
 
@@ -42,13 +56,12 @@ class MarketReviews extends React.Component {
     }
 
     render() {
-      console.log('REVIEWS',this.state.reviews);
+      console.log(this.state.reviews);
       let Reviews;
       if (this.state.reviews.length) {
-        console.log('!@$!%!#', this.state.reviews);
         Reviews = this.state.reviews.map((review, i) => {
           return (
-            <div key={i}>
+            <div key={i} className='review'>
               <StarRatingComponent
                 name='showing review'
                 starCount={+review.rating}
@@ -56,7 +69,7 @@ class MarketReviews extends React.Component {
                 value={+review.rating}
                 starColor={'rgb(255, 143, 0)'}
               />
-              <p>{review.date}</p>
+              <p className='reviewDate'>{moment(review.date).format("lll")}</p>
               <p>{review.text}</p>
             </div>
           )

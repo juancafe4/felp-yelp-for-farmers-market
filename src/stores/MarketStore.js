@@ -4,6 +4,9 @@ import AppDispatcher from '../AppDispatcher';
 let _results = null;
 let _market = null;
 let _name = null;
+let _reviews = null;
+let _stand = null;
+
 class MarketStore extends EventEmitter {
   constructor() {
     super();
@@ -17,12 +20,25 @@ class MarketStore extends EventEmitter {
           break;
         case 'RECEIVE_MARKET':
           _market = action.market;
+          _reviews = action.market.reviews;
           this.emit('CHANGE');
           break;
 
         case 'SET_NAME':
           _name = action.name;
           this.emit('CHANGE')
+          break;
+        case 'UPDATE_MARKET':
+          _market = action.market;
+          this.emit('CHANGE')
+          break;
+        case 'UPDATE_REVIEW':
+          _reviews.push(action.review)
+          this.emit('CHANGE');
+          break;
+        case 'UPDATE_STAND':
+          _stands.push(action.stand)
+          this.emit('CHANGE');
           break;
       }
     })
@@ -52,6 +68,13 @@ class MarketStore extends EventEmitter {
     _name = newName;
   }
 
+  getReviews() {
+    return _reviews;
+  }
+
+  getStands() {
+    return _stands;
+  }
 }
 
 
