@@ -75,8 +75,6 @@ export default class Navbar extends Component {
 
         <Tabs>
           <Tab label="Home" onClick={this.goToUrl.bind(null, '/')}/>
-          <Tab label="Item 2"/>
-          <Tab label="Item 3"/>
           <Tab label="About Us" onClick={this.goToUrl.bind(null, '/about-us')}/>
         </Tabs>
       </AppBar>

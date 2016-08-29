@@ -19,7 +19,7 @@ export default class Layout extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Navbar />
-          <div className="container">
+          <div>
             {this.props.children}
           </div>
         </div>

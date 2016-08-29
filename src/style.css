@@ -2,6 +2,12 @@
   background-color: #43A047 !important;
 }
 
+.splashBack {
+  background-image:url(https://hd.unsplash.com/photo-1452948491233-ad8a1ed01085);
+  background-size: cover;
+  height: 1000px;
+}
+
 .AppBar div {
   background-color: #43A047 !important;
   margin-right: 10px;
@@ -46,4 +52,10 @@
 
 .review {
   margin-bottom: 40px;
+}
+
+#splashTitle {
+  color: white;
+  font-size: 100px;
+  margin-top: 200px;
 }

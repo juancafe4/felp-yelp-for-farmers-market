@@ -5,7 +5,7 @@ let _results = null;
 let _market = null;
 let _name = null;
 let _reviews = null;
-let _stand = null;
+let _stands = null;
 
 class MarketStore extends EventEmitter {
   constructor() {

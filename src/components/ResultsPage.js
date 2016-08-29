@@ -52,14 +52,18 @@ class ResultsPage extends React.Component {
           return <ListItem key={id} onClick={this.goToMarket.bind(null, id, address)} primaryText={`${address}`} secondaryText={`${miles} miles`} rightIcon={<ActionInfo/>}/>
         })
         return(
-          <List>
-             {listItems}
-          </List>
+          <div className='container'>
+            <List>
+               {listItems}
+            </List>
+          </div>
         );
       }
       return (
-        <div className='text-center'>
-          <CircularProgress size={2} />
+        <div className='conatainer'>
+          <div className='text-center'>
+            <CircularProgress size={2} />
+          </div>
         </div>
       )  
     }

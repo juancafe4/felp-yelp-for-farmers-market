@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 export default class Splash extends Component {
   render() {
     return (
-      <div className='text-center'>
-        <h1>SPLASH PAGE</h1>
+      <div className='container-fluid text-center splashBack'>
+        <h1 id="splashTitle">WELCOME TO FELP</h1>
       </div>
     )
   }
