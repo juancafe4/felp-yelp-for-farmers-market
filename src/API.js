@@ -7,8 +7,9 @@ const API = {
       .then(ServerActions.getResults)
       .catch(console.error)
   },
-  getMarket(id) {
-    axios.get(`/api/markets/id/${id}`)
+  getMarket(id, name) {
+    console.log('NAMEN', name);
+    axios.post(`/api/markets/id/${id}`, {name})
       .then(res => res.data)
       .then(ServerActions.getMarket)
       .catch(console.error)
